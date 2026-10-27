@@ -68,4 +68,4 @@ Buy the domain, then go to **Settings → Pages → Custom domain**, enter it an
 Typeface: Source Serif 4 by Adobe, SIL Open Font License 1.1 (`assets/fonts/OFL.txt`).
 Travel guide typefaces: DM Mono, Shippori Mincho and Zen Kaku Gothic New, SIL Open Font License 1.1 (`asia-pacific/fonts/OFL.txt`).
 Map: Natural Earth 1:50m countries, public domain, in the Equal Earth projection.
-No cookies, analytics or third-party requests on this site or the guide. The tool pages are separate repositories with their own notes.
+No cookies, analytics or third-party requests on this site, the guide or the four tool pages, which keep their own fonts and libraries in their repositories.
