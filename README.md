@@ -47,12 +47,17 @@ You don't have to remember when. A check runs on the 2nd of every month (**Actio
 
 ## Search engines
 
-`sitemap.xml` and `robots.txt` are generated automatically. To see how people find the site, add it to Google Search Console as a **URL prefix** property (`https://felixdlanger.github.io/`). Not as a **Domain** property: that one can only be verified with a DNS record, and the DNS of github.io belongs to GitHub. Then verify it in one of two ways:
+`sitemap.xml` and `robots.txt` are generated automatically. The steps below happen in Google Search Console (search.google.com/search-console), not on google.com. It works in a phone's browser too.
 
-- **HTML tag** (easiest on a phone): copy the code inside `content="…"` from the tag Google shows, paste it between the quotes of `google_site_verification` in `_config.yml`, commit, wait a minute and press **Verify**.
-- **HTML file**: download the `google….html` file Google offers and upload it here with **Add file → Upload files**. It stays out of the sitemap by itself.
+1. **Add the property.** Choose **URL prefix** and enter `https://felixdlanger.github.io/`. Not **Domain**: that one can only be verified with a DNS record, and the DNS of github.io belongs to GitHub.
+2. **Verify** in one of two ways, then keep the file or the code for good: Google checks it again from time to time, and removing it ends the verification.
+   - **HTML file** (in place): `googlef6011c11b645f255.html` is in this repository. After any upload, wait two minutes, check that the file opens in a private browser tab, then press **Verify**, signed in with the Google account that downloaded the file.
+   - **HTML tag**: copy the code inside `content="…"` from the tag Google shows, paste it between the quotes of `google_site_verification` in `_config.yml`, commit, wait two minutes and press **Verify**.
+3. **Submit the sitemap.** Left menu → **Indexing → Sitemaps** → under **Add a new sitemap**, type `sitemap.xml` after the address shown → **Submit**.
+4. **Ask for the first crawl.** Paste `https://felixdlanger.github.io/` into the inspection bar at the top of Search Console → **Request indexing**. Repeat for the Research, Frameworks and About pages. Google caps these requests at a small number a day.
+5. **Bing.** In Bing Webmaster Tools, sign in and choose **Import from Google Search Console**: the site and its sitemap come across verified. Bing's index also feeds DuckDuckGo, Yahoo and Copilot.
 
-Keep the code or the file for good: Google checks it again from time to time, and removing it ends the verification. Then submit `sitemap.xml` under **Sitemaps**. Once you have your own domain, add it as a **Domain** property instead.
+Once you have your own domain, add it as a **Domain** property instead.
 
 ## Your own domain
 
