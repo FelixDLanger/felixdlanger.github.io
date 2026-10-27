@@ -208,12 +208,17 @@
       legendEl.appendChild(li);
     });
     visaNoteEl.textContent = "";
-    visaNoteEl.appendChild(document.createTextNode("Tourist stays with a " + (visa.passport || "German passport") + ", as of " + formatDate(visa.asOf) + ". Entry rules change often, so check the "));
+    visaNoteEl.appendChild(document.createTextNode("Tourist stays with a " + (visa.passport || "German passport") + ", as of " + formatDate(visa.asOf) + ". For orientation only, not legal advice: entry rules change often and depend on your passport, purpose and route, so check the "));
     var a = document.createElement("a");
     a.href = visa.check;
     a.textContent = "Federal Foreign Office";
     visaNoteEl.appendChild(a);
-    visaNoteEl.appendChild(document.createTextNode(" before you travel."));
+    visaNoteEl.appendChild(document.createTextNode(" and the destination’s official sources before you travel. "));
+    var legal = document.createElement("a");
+    legal.href = "legal.html";
+    legal.textContent = "Legal notice";
+    visaNoteEl.appendChild(legal);
+    visaNoteEl.appendChild(document.createTextNode("."));
   }
 
   // ---------- Rendering ----------

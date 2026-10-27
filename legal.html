@@ -1,0 +1,128 @@
+---
+---
+{%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
+{%- comment -%} The travel-guide passages appear only while asia-pacific/index.html is in the repository. {%- endcomment -%}
+{%- assign guide_live = false -%}
+{%- for f in site.static_files -%}{%- if f.path == "/asia-pacific/index.html" -%}{%- assign guide_live = true -%}{%- endif -%}{%- endfor -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Legal notice – Felix Diego Langer</title>
+<meta name="description" content="Legal notice for the personal website of Felix Diego Langer: no advice, the status of the research, dates and accuracy, the travel guide, links, liability, copyright and privacy.">
+<link rel="canonical" href="{{ base }}/legal.html">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felix Diego Langer">
+<meta property="og:title" content="Legal notice – Felix Diego Langer">
+<meta property="og:description" content="No advice, research status, dates and accuracy, links, liability, copyright and privacy.">
+<meta property="og:url" content="{{ base }}/legal.html">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html">Felix Diego Langer</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="research.html">Research</a>
+    <a href="frameworks.html">Frameworks &amp; tools</a>
+    <a href="about.html">About</a>
+    <a href="beyond.html">Beyond work</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-intro wrap">
+    <h1>Legal notice</h1>
+    <p class="lede">This is the personal website of Felix Diego Langer, based in Bangkok. Its pages carry no advertising and no affiliate links. The quickest way to reach me is a message on <a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a>.</p>
+  </section>
+
+  <section class="section wrap" id="no-advice" aria-labelledby="advice-h">
+    <h2 class="section-head" id="advice-h">No advice</h2>
+    <div class="section-body prose">
+      <p>Everything on this site is for information and education. Nothing here is investment, financial, tax, legal, immigration, medical or other professional advice, and nothing is an offer, solicitation or recommendation to buy, sell or hold any security, token or other asset.</p>
+      <p>I am not a licensed investment adviser, broker, lawyer, tax adviser or physician, and I offer no regulated service in any jurisdiction. The habits and money flows on About describe my own life, not a plan for yours. For decisions, consult a qualified professional licensed where you live.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="research" aria-labelledby="research-h">
+    <h2 class="section-head" id="research-h">Research and tools</h2>
+    <div class="section-body prose">
+      <p>The papers are working papers posted on SSRN: preliminary and subject to revision, and not peer-reviewed unless a paper says otherwise. The frameworks and browser tools are research instruments. Their outputs are illustrative, not valuations, ratings, forecasts or recommendations, and past performance does not predict future results.</p>
+      <p>The four tools run in your browser and live in their own repositories, open source under the GNU Affero General Public License 3.0. Each states its own scope and limits. FlightCompass contains affiliate links, labeled as such; its own notes explain how they work.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="accuracy" aria-labelledby="accuracy-h">
+    <h2 class="section-head" id="accuracy-h">Dates and accuracy</h2>
+    <div class="section-body prose">
+      <p>I check what I publish, but I cannot guarantee that it is complete, accurate or current. Information carries the date it was compiled: the visa view on Beyond work shows its own as-of date{% if guide_live %}, and the travel guide was compiled in October 2026{% endif %}.</p>
+      <p>Entry rules, tax-refund rules, prices and opening hours change, sometimes at short notice. Before you travel, confirm entry rules with the <a href="https://www.auswaertiges-amt.de/de/reiseundsicherheit/reise-und-sicherheitshinweise">Federal Foreign Office</a> and the destination’s official sources, and check details with the venue.</p>
+    </div>
+  </section>
+
+  {%- if guide_live %}
+  <section class="section wrap" id="travel-guide" aria-labelledby="guide-h">
+    <h2 class="section-head" id="guide-h">Travel guide</h2>
+    <div class="section-body prose">
+      <p>The travel guide reflects my own research, visits and opinions at the time, and experiences vary. It has no paid placements, sponsorships or affiliate links, and no affiliation with any venue. If you run a business listed in it and something is out of date, send me a message and I will correct it.</p>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="section wrap" id="views" aria-labelledby="views-h">
+    <h2 class="section-head" id="views-h">Views and links</h2>
+    <div class="section-body prose">
+      <p>The views expressed here are my own, not those of my employer, my university or any other organization.</p>
+      <p>Links to other sites are there for convenience. I have no control over their content and am not responsible for it, and a link is not an endorsement.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="liability" aria-labelledby="liability-h">
+    <h2 class="section-head" id="liability-h">Liability</h2>
+    <div class="section-body prose">
+      <p>To the extent the law allows, I accept no liability for any loss or damage arising from the use of this site or from reliance on its content.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="copyright" aria-labelledby="copyright-h">
+    <h2 class="section-head" id="copyright-h">Copyright</h2>
+    <div class="section-body prose">
+      <p>Text, photographs, diagrams and the code of this website are © 2026 Felix Diego Langer unless stated otherwise. Short quotations with attribution are welcome; for anything else, please ask first. A paper or figure that states its own license may be used under that license. Images made with AI are labeled as such.</p>
+      <p>Third-party material: {% if guide_live %}the typefaces Source Serif 4, DM Mono, Shippori Mincho and Zen Kaku Gothic New{% else %}the typeface Source Serif 4{% endif %} (SIL Open Font License 1.1), map data from Natural Earth (public domain), and the open Passport Index dataset used by the visa check (MIT License). Calm and other names shown are trademarks of their owners.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" id="privacy" aria-labelledby="privacy-h">
+    <h2 class="section-head" id="privacy-h">Privacy</h2>
+    <div class="section-body prose">
+      <p>This website{% if guide_live %}, the travel guide included,{% endif %} uses no cookies, analytics or tracking, and nothing you type on it is sent anywhere. Its fonts, maps and images are served from the site itself, so its pages make no requests to other companies’ servers. It is hosted on GitHub Pages; GitHub logs technical data such as IP addresses when it serves pages, as set out in the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>. The map you fill in on Beyond work{% if guide_live %} and the places you save in the travel guide are{% else %} is{% endif %} stored only in your own browser, and clearing your browser data removes {% if guide_live %}them{% else %}it{% endif %}.</p>
+      <p>The browser tools are separate projects with their own notes. Some load fonts or code libraries from Google Fonts or cdnjs, whose servers then receive your IP address.</p>
+      <p class="note">Last updated 27 October 2026.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer wrap">
+  <p>Felix Diego Langer, Bangkok<span class="footer-note">Views are my own, not my employer’s. <a href="legal.html" aria-current="page">Legal notice</a></span></p>
+  <ul class="link-row" aria-label="Profiles">
+    <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+    <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN</a></li>
+    <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+    <li><a href="https://medium.com/@FelixLanger">Medium</a></li>
+    <li><a href="https://www.instagram.com/felixdl7/">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

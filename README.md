@@ -12,6 +12,7 @@ Every change you commit here goes live by itself in a minute or two. The **Actio
 | `frameworks.html` | Frameworks & tools |
 | `about.html` | About |
 | `beyond.html` | Beyond work: photographs, the country map and the travel guide card |
+| `legal.html` | Legal notice, linked from every footer: no advice, research status, dates, the guide, links, liability, copyright and privacy |
 | `_data/papers.yml` | Your working papers, used on Home and Research |
 | `images/gallery/` | Photographs for Beyond work. They appear automatically |
 | `images/site/` | Named images: portrait and framework diagrams. The note in that folder lists the names |
@@ -19,7 +20,7 @@ Every change you commit here goes live by itself in a minute or two. The **Actio
 | `assets/map/visa-de.json` | Visa rules for German passport holders, shown in the map's visa view |
 | `asia-pacific/` | Your travel guide, Asia-Pacific, Annotated, at `/asia-pacific/`. Its card on Beyond work appears only while this folder exists |
 | `assets/` | Styles, fonts, scripts and map data. No need to touch these |
-| `.github/` | The monthly visa check (see below) |
+| `.github/` | The monthly visa check (see below) and the script that prepares the travel guide. Never published |
 | `_config.yml` | Site settings, including your ORCID iD and Google Scholar profile once you have them |
 
 ## Everyday changes
@@ -36,13 +37,13 @@ This repository is public, so anyone can download the files in it, and a file yo
 
 **Refresh the visa rules.** They are dated (`asOf`, currently 20 October 2026) and change often. In `assets/map/visa-de.json` each country code holds a category `c`: `free`, `eta` (online authorization), `voa` (visa on arrival), `evisa` or `visa`, plus the allowed stay `s` and an optional note `n`. Update the entry you need and the `asOf` date.
 
-You don't have to remember when. A check runs on the 2nd of every month (**Actions → Visa check**). Each January, and whenever a rule's end date has passed, it opens an issue in this repository, and GitHub notifies you (by e-mail, with the default settings). The issue lists what to look at, with a request you can paste into Claude to do the research. It never changes the data by itself, because official rules and open datasets often disagree. To run it now: **Actions → Visa check → Run workflow**. GitHub pauses schedules in public repositories after 60 days without a commit, so if the site goes 50 days unchanged, the check records its date in `.github/visa-check-last-run` to keep itself running.
+You don't have to remember when. A check runs on the 2nd of every month (**Actions → Visa check**). Every quarter (January, April, July and October), and whenever a rule's end date has passed, it opens an issue in this repository, and GitHub notifies you (by e-mail, with the default settings). The issue lists what to look at, with a request you can paste into Claude to do the research. It never changes the data by itself, because official rules and open datasets often disagree. To run it now: **Actions → Visa check → Run workflow**. GitHub pauses schedules in public repositories after 60 days without a commit, so if the site goes 50 days unchanged, the check records its date in `.github/visa-check-last-run` to keep itself running.
 
-**Change text on a page.** Open the page file, press the pencil icon, edit the words between the tags and commit.
+**Change text on a page.** Open the page file, press the pencil icon, edit the words between the tags and commit. When you change `legal.html`, update its “Last updated” date at the bottom.
 
 **Add your ORCID iD or Google Scholar profile.** Open `_config.yml`, press the pencil icon, fill in `orcid` or `google_scholar` between the quotes and commit. The link appears on Research and in the information search engines read about you.
 
-**Update or remove the travel guide.** To publish a new version, replace `asia-pacific/index.html` with one prepared for this site: ask Claude to prepare it from the updated artifact. The prepared page differs from the artifact in three ways only: a proper page head with title and share preview, the fonts in `asia-pacific/fonts` instead of Google's (so visitors make no requests to third parties), and the curator credit linking back to this site. If the guide's introduction changes, change the card text on `beyond.html` to match, and replace `asia-pacific/og.png`, the share image, if the counts changed. To take the guide offline, delete the `asia-pacific` folder; the card on Beyond work and its mention on Home disappear by themselves.
+**Update or remove the travel guide.** To publish a new version, replace `asia-pacific/index.html` with one prepared for this site: ask Claude to prepare it from the updated artifact with `.github/scripts/prepare_guide.py`. The prepared page differs from the artifact in four ways only: a proper page head with title, share preview and canonical address; the fonts in `asia-pacific/fonts` instead of Google's (so visitors make no requests to third parties); the curator credit linking back to this site, with a link to the legal notice; and one softened remark (Mil Toast House now reads “Very rich.”). Make that last change in the artifact too, so the two stay alike. If the guide's introduction changes, change the card text on `beyond.html` to match, and replace `asia-pacific/og.png`, the share image, if the counts changed. To take the guide offline, delete the `asia-pacific` folder; the card on Beyond work and its mention on Home disappear by themselves.
 
 ## Search engines
 
@@ -62,4 +63,4 @@ Buy the domain, then go to **Settings → Pages → Custom domain**, enter it an
 Typeface: Source Serif 4 by Adobe, SIL Open Font License 1.1 (`assets/fonts/OFL.txt`).
 Travel guide typefaces: DM Mono, Shippori Mincho and Zen Kaku Gothic New, SIL Open Font License 1.1 (`asia-pacific/fonts/OFL.txt`).
 Map: Natural Earth 1:50m countries, public domain, in the Equal Earth projection.
-No cookies, analytics or third-party requests.
+No cookies, analytics or third-party requests on this site or the guide. The tool pages are separate repositories with their own notes.

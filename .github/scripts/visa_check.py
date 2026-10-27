@@ -6,8 +6,8 @@ and news often disagree, so a person decides. It lists what needs a look:
   1. rules whose note gives an end date that has passed or is close,
   2. where the open Passport Index dataset (MIT license) says something else, and how old that dataset is,
   3. how old the data on the site is.
-January runs and manual runs produce the full yearly review. Other months report only an end date
-that has passed since the previous monthly run.
+Runs in January, April, July and October, and manual runs, produce the full quarterly review. Other months
+report only an end date that has passed since the previous monthly run.
 
 Environment (all optional): TODAY=YYYY-MM-DD, FULL_REVIEW=true, GH_TOKEN (raises the GitHub API rate limit),
 VISA_DATASET_FILE and VISA_DATASET_DATE (use a local copy of the dataset instead of downloading it).
@@ -28,6 +28,7 @@ DATASET_COMMITS = "https://api.github.com/repos/imorte/passport-index-data/commi
 DATASET_PAGE = "https://github.com/imorte/passport-index-data"
 SOON_DAYS = 60       # an end date this close counts as "ends soon"
 MONTHLY_WINDOW = 35  # other months report end dates that passed within this many days
+QUARTER_MONTHS = (1, 4, 7, 10)  # months of the full review
 
 CATEGORY = {"visa free": "free", "visa on arrival": "voa", "eta": "eta", "e-visa": "evisa",
             "visa required": "visa", "no admission": "visa"}
@@ -151,7 +152,7 @@ def table(header, rows):
 def main():
     today = dt.date.fromisoformat(os.environ["TODAY"]) if os.environ.get("TODAY") else dt.date.today()
     manual = os.environ.get("FULL_REVIEW", "").lower() == "true"
-    full = manual or today.month == 1
+    full = manual or today.month in QUARTER_MONTHS
     doc = json.loads(DATA.read_text())
     countries, as_of = doc["countries"], dt.date.fromisoformat(doc["asOf"])
 
@@ -183,7 +184,7 @@ def main():
     if manual:
         title = f"Visa rules: check of {long_date(today)}"
     elif full:
-        title = f"Visa rules: yearly check, {today.strftime('%B')} {today.year}"
+        title = f"Visa rules: quarterly check, {today.strftime('%B')} {today.year}"
     elif just_passed:
         title = "Visa rules: an end date has passed (" + ", ".join(just_passed) + ")"
     else:
@@ -213,7 +214,7 @@ def main():
               "> Check these entries in my visa-de.json against the Auswärtiges Amt and each destination's official "
               "immigration site, and give me the corrected file with asOf updated: "
               + (", ".join(dict.fromkeys(flagged)) if flagged else "every entry whose rule may have changed since " + long_date(as_of)) + ".",
-              "", "_Opened by `.github/workflows/visa-check.yml`. It checks on the 2nd of every month and writes the full review each January._"]
+              "", "_Opened by `.github/workflows/visa-check.yml`. It checks on the 2nd of every month and writes the full review each quarter, in January, April, July and October._"]
 
     out_dir = pathlib.Path(os.environ.get("RUNNER_TEMP") or tempfile.gettempdir())
     path = out_dir / "visa-report.md"

@@ -2,7 +2,7 @@
   "passport": "German passport",
   "asOf": "2026-10-20",
   "check": "https://www.auswaertiges-amt.de/de/reiseundsicherheit/reise-und-sicherheitshinweise",
-  "categories": [{"key": "free", "label": "Visa-free"}, {"key": "eta", "label": "Travel authorisation online"}, {"key": "voa", "label": "Visa on arrival"}, {"key": "evisa", "label": "eVisa in advance"}, {"key": "visa", "label": "Visa required"}],
+  "categories": [{"key": "free", "label": "Visa-free"}, {"key": "eta", "label": "Travel authorization online"}, {"key": "voa", "label": "Visa on arrival"}, {"key": "evisa", "label": "eVisa in advance"}, {"key": "visa", "label": "Visa required"}],
   "countries": {
     "AFG": {"name": "Afghanistan", "c": "evisa", "s": "30 days"},
     "ALB": {"name": "Albania", "c": "free", "s": "90 days"},

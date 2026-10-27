@@ -1,7 +1,7 @@
 # Visa check for the map on Beyond work.
 # On the 2nd of every month this compares assets/map/visa-de.json with the end dates in its own notes
-# and with an open dataset, and opens an issue when something needs a look. Each January it writes the
-# full yearly review. It never edits the visa data itself; you decide, using the issue as a checklist.
+# and with an open dataset, and opens an issue when something needs a look. Each quarter (January, April,
+# July, October) it writes the full review. It never edits the visa data itself; you decide, using the issue as a checklist.
 # Run it any time from the Actions tab: Visa check → Run workflow.
 name: Visa check
 
