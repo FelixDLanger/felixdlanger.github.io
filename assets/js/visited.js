@@ -1,0 +1,51 @@
+/*
+  Countries shown as "My countries" on the Beyond work page.
+
+  One entry per line, in double quotes, followed by a comma.
+  English names and ISO codes both work, for example "Germany", "UK", "SGP".
+  An entry the map doesn't recognize is skipped and named in the browser console.
+*/
+window.FDL_VISITED = [
+  "Australia",
+  "Austria",
+  "Belgium",
+  "Bosnia and Herzegovina",
+  "Bulgaria",
+  "Cambodia",
+  "China",
+  "Croatia",
+  "Czech Republic",
+  "Denmark",
+  "France",
+  "Germany",
+  "Greece",
+  "Hungary",
+  "Iceland",
+  "India",
+  "Indonesia",
+  "Italy",
+  "Japan",
+  "South Korea",
+  "Laos",
+  "Luxembourg",
+  "Malaysia",
+  "Monaco",
+  "Montenegro",
+  "Myanmar",
+  "Netherlands",
+  "Philippines",
+  "Poland",
+  "Portugal",
+  "Saudi Arabia",
+  "Singapore",
+  "Spain",
+  "Switzerland",
+  "Taiwan",
+  "Thailand",
+  "Turkey",
+  "United Arab Emirates",
+  "United Kingdom",
+  "United States",
+  "Vatican City",
+  "Vietnam",
+];

@@ -1,0 +1,181 @@
+---
+---
+{%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
+{%- comment -%}
+  Every image in images/gallery/ appears below automatically, sorted by file name.
+  The caption comes from the file name: "03-singapore-marina-bay.jpg" becomes "Singapore marina bay".
+{%- endcomment -%}
+{%- comment -%}
+  The travel guide card appears only while asia-pacific/index.html is in the repository.
+{%- endcomment -%}
+{%- assign guide_live = false -%}
+{%- for f in site.static_files -%}{%- if f.path == "/asia-pacific/index.html" -%}{%- assign guide_live = true -%}{%- endif -%}{%- endfor -%}
+{%- assign photo_count = 0 -%}
+{%- assign gallery_files = site.static_files | sort: "path" -%}
+{%- capture photo_items -%}
+{%- for f in gallery_files -%}
+{%- if f.path contains "/images/gallery/" -%}
+{%- assign f_ext = f.extname | downcase -%}
+{%- case f_ext -%}
+{%- when ".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif" -%}
+{%- assign photo_count = photo_count | plus: 1 -%}
+{%- assign words = f.basename | replace: "_", "-" | replace: " ", "-" | split: "-" -%}
+{%- assign lead = words | first | plus: 0 -%}
+{%- if lead > 0 or words.first == "0" or words.first == "00" or words.first == "000" -%}{%- assign words = words | slice: 1, 999 -%}{%- endif -%}
+{%- assign caption = words | join: " " | strip -%}
+{%- if caption == "" -%}{%- assign caption = "Photograph " | append: photo_count -%}{%- endif -%}
+{%- assign cap_first = caption | slice: 0 | upcase -%}
+{%- assign caption = caption | slice: 1, 999 | prepend: cap_first %}
+      <li><a class="photo" href="{{ f.path | uri_escape }}"><img src="{{ f.path | uri_escape }}" alt="{{ caption | escape }}" width="600" height="600" loading="lazy" decoding="async"></a></li>
+{%- endcase -%}
+{%- endif -%}
+{%- endfor -%}
+{%- endcapture -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Beyond work – Felix Diego Langer</title>
+<meta name="description" content="Photographs by Felix Diego Langer, an interactive map of the 42 countries he has visited, visa rules for German passport holders, and a map you can fill in yourself.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felix Diego Langer">
+<meta property="og:title" content="Beyond work – Felix Diego Langer">
+<meta property="og:description" content="Photographs from 42 countries, and a world map you can fill in with your own.">
+<meta property="og:url" content="{{ base }}/beyond.html">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="assets/map/world.json" as="fetch" type="application/json" crossorigin>
+<link rel="preload" href="assets/map/visa-de.json" as="fetch" type="application/json" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script src="assets/js/visited.js" defer></script>
+<script src="assets/js/map.js" defer></script>
+<script src="assets/js/gallery.js" defer></script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html">Felix Diego Langer</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="research.html">Research</a>
+    <a href="frameworks.html">Frameworks &amp; tools</a>
+    <a href="about.html">About</a>
+    <a href="beyond.html" aria-current="page">Beyond work</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-intro wrap">
+    <h1>Beyond work</h1>
+    <p class="lede">I photograph what I find along the way. Grateful to have visited 42 countries so far.</p>
+  </section>
+
+  {%- if photo_count > 0 %}
+  <section class="section wrap" aria-labelledby="photos-h">
+    <h2 class="section-head" id="photos-h">Photographs<span class="aside">{{ photo_count }} {% if photo_count == 1 %}picture{% else %}pictures{% endif %}</span></h2>
+    <div class="section-body is-wide">
+      <ul class="gallery" data-gallery>{{ photo_items }}
+      </ul>
+      <p class="note">Prints of any photograph are available on request. Send me a message on <a href="https://www.instagram.com/felixdl7/">Instagram</a> or <a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a>.</p>
+    </div>
+  </section>
+  {%- endif %}
+
+  <section class="section wrap" aria-labelledby="map-h">
+    <h2 class="section-head" id="map-h">Countries<span class="aside">Visa rules, and a map of your own</span></h2>
+    <div class="section-body is-wide">
+      <div class="map-panel" data-map data-map-src="assets/map/world.json" data-visa-src="assets/map/visa-de.json" data-mode="felix">
+        <div class="map-toolbar">
+          <div class="segmented" role="group" aria-label="Whose countries to show" data-mode-switch hidden>
+            <button type="button" class="btn" data-set-mode="felix" aria-pressed="true">My countries</button>
+            <button type="button" class="btn" data-set-mode="visa" aria-pressed="false">Visa for Germans</button>
+            <button type="button" class="btn" data-set-mode="yours" aria-pressed="false">Map your own</button>
+          </div>
+          <p class="map-count" data-count></p>
+        </div>
+        <div class="map-stage" data-stage>
+          <p class="map-fallback" data-fallback>The map is loading. It needs JavaScript to work.</p>
+          <div class="map-tip" data-tip hidden></div>
+        </div>
+        <div class="map-regions" role="group" aria-label="Zoom to a region" data-regions hidden>
+          <button type="button" class="btn btn-quiet" data-region="world" aria-pressed="true">World</button>
+          <button type="button" class="btn btn-quiet" data-region="europe" aria-pressed="false">Europe</button>
+          <button type="button" class="btn btn-quiet" data-region="asia" aria-pressed="false">Asia</button>
+          <button type="button" class="btn btn-quiet" data-region="americas" aria-pressed="false">Americas</button>
+          <button type="button" class="btn btn-quiet" data-region="africa" aria-pressed="false">Africa</button>
+          <button type="button" class="btn btn-quiet" data-region="oceania" aria-pressed="false">Oceania</button>
+        </div>
+        <p class="map-status" data-status aria-live="polite"></p>
+        <div class="map-visa" data-visa-panel hidden>
+          <ul class="legend" data-legend aria-label="Entry rules for a German passport"></ul>
+          <p class="map-note" data-visa-note></p>
+        </div>
+        <div class="map-yours" data-yours hidden>
+          <form class="map-add" data-add-form>
+            <label for="country-input">Add a country</label>
+            <input class="field" id="country-input" name="country" list="country-options" autocomplete="off" autocapitalize="words" spellcheck="false" placeholder="Start typing, for example Japan">
+            <button type="submit" class="btn">Add</button>
+            <datalist id="country-options" data-options></datalist>
+          </form>
+          <ul class="chips" data-chips aria-label="Countries you have marked"></ul>
+          <div class="map-actions">
+            <button type="button" class="btn" data-download>Download image</button>
+            <button type="button" class="btn btn-quiet" data-clear>Clear map</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {%- if guide_live %}
+  <section class="section wrap" aria-labelledby="guide-h">
+    <h2 class="section-head" id="guide-h">Travel guide<span class="aside">Asia-Pacific, from Bangkok</span></h2>
+    <div class="section-body">
+      <a class="guide-card" href="asia-pacific/">
+        <img class="guide-shot" src="asia-pacific/og.png" alt="" width="1200" height="630" loading="lazy" decoding="async">
+        <span class="guide-body">
+          <span class="guide-kicker">Interactive map</span>
+          <span class="guide-title">Asia-Pacific, Annotated</span>
+          <span class="guide-text">Stays, bakeries, coffee, tea, omakase, spas and the sights worth the flight, mapped from my base in Bangkok, plus what each country is worth buying. Every place comes from my own research and notes; the red seal marks the ones I have been to.</span>
+          <span class="guide-cta">Open the guide</span>
+        </span>
+      </a>
+    </div>
+  </section>
+  {%- endif %}
+</main>
+
+<dialog class="lightbox" aria-label="Photograph viewer">
+  <div class="lightbox-bar">
+    <span class="lightbox-pos" data-lb-pos></span>
+    <button type="button" class="btn" data-lb="close">Close</button>
+  </div>
+  <div class="lightbox-stage" data-lb-stage><img class="lightbox-img" alt="" data-lb-img></div>
+  <div class="lightbox-foot">
+    <button type="button" class="btn" data-lb="prev">Previous</button>
+    <p class="lightbox-caption" data-lb-caption></p>
+    <button type="button" class="btn" data-lb="next">Next</button>
+  </div>
+</dialog>
+
+<footer class="site-footer wrap">
+  <p>Felix Diego Langer, Bangkok<span class="footer-note">Views are my own, not my employer’s.</span></p>
+  <ul class="link-row" aria-label="Profiles">
+    <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+    <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN</a></li>
+    <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+    <li><a href="https://medium.com/@FelixLanger">Medium</a></li>
+    <li><a href="https://www.instagram.com/felixdl7/">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

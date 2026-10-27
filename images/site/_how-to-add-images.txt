@@ -1,0 +1,16 @@
+Images for specific places on the site. Upload a file with exactly one of these names
+(any of .jpg .jpeg .png .webp works, upper or lower case) and it appears in that spot.
+If a file is missing, the page simply shows the text without an image.
+
+  portrait                      About page, next to the title (portrait format looks best)
+  fiscal-infrastructure-ladder  Frameworks & tools page
+  concentric-value-model        Frameworks & tools page
+  tave                          Frameworks & tools page
+  core-integrity                Frameworks & tools page (now: the CIAOF decision matrix)
+  eagi                          Frameworks & tools page (now: the Governance Observability Ladder)
+  flightcompass                 Frameworks & tools page (a screenshot of the tool works well)
+  meditation                    About page
+
+Example: concentric-value-model.png
+
+This file itself is ignored by the website because its name starts with an underscore.

@@ -1,0 +1,68 @@
+# Visa check for the map on Beyond work.
+# On the 2nd of every month this compares assets/map/visa-de.json with the end dates in its own notes
+# and with an open dataset, and opens an issue when something needs a look. Each January it writes the
+# full yearly review. It never edits the visa data itself; you decide, using the issue as a checklist.
+# Run it any time from the Actions tab: Visa check → Run workflow.
+name: Visa check
+
+on:
+  schedule:
+    - cron: "17 2 2 * *"   # 02:17 UTC on the 2nd of each month, 09:17 in Bangkok
+  workflow_dispatch:
+
+permissions:
+  contents: write   # only for the small housekeeping commit below
+  issues: write     # to open or update the review issue
+
+concurrency:
+  group: visa-check
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+      GH_REPO: ${{ github.repository }}
+    steps:
+      - name: Check out the site
+        uses: actions/checkout@v7
+
+      - name: Review the visa rules
+        id: review
+        env:
+          FULL_REVIEW: ${{ github.event_name == 'workflow_dispatch' }}
+        run: python3 .github/scripts/visa_check.py
+
+      - name: Open or update the review issue
+        if: steps.review.outputs.report == 'true'
+        env:
+          TITLE: ${{ steps.review.outputs.title }}
+          REPORT: ${{ steps.review.outputs.file }}
+        run: |
+          existing="$(gh issue list --state open --search 'in:title "Visa rules"' --json number --jq '.[0].number // empty')"
+          if [ -n "$existing" ]; then
+            gh issue comment "$existing" --body-file "$REPORT"
+            echo "Added the review to issue #$existing"
+          else
+            gh issue create --title "$TITLE" --body-file "$REPORT"
+          fi
+
+      # GitHub pauses scheduled workflows in public repositories after 60 days without a commit.
+      # If the site has not changed for 50 days, record the date of this check so the schedule keeps running.
+      - name: Keep the schedule running
+        if: ${{ !cancelled() }}
+        run: |
+          last="$(git log -1 --format=%ct)"
+          idle=$(( ( $(date +%s) - last ) / 86400 ))
+          echo "Days since the last commit: $idle"
+          if [ "$idle" -ge 50 ]; then
+            mkdir -p .github
+            date -u +%F > .github/visa-check-last-run
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add .github/visa-check-last-run
+            git commit -m "Record the monthly visa check"
+            git push origin "HEAD:$GITHUB_REF_NAME"
+          fi

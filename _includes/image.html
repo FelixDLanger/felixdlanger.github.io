@@ -1,0 +1,27 @@
+{%- comment -%}
+  Shows an image from images/site/ only when a file with that name exists.
+  Any extension (.jpg .jpeg .png .webp .avif .gif) and any letter case work.
+  Usage: {% include image.html name="longevity-pyramid" alt="…" caption="…" class="…" zoom=true %}
+  zoom=true makes the image a link to the full-size file, for detailed figures.
+{%- endcomment -%}
+{%- assign img_src = "" -%}
+{%- assign img_want = include.name | downcase -%}
+{%- for img_file in site.static_files -%}
+  {%- if img_file.path contains "/images/site/" -%}
+    {%- assign img_base = img_file.basename | downcase -%}
+    {%- if img_base == img_want -%}
+      {%- assign img_ext = img_file.extname | downcase -%}
+      {%- case img_ext -%}
+        {%- when ".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif" -%}
+          {%- assign img_src = img_file.path -%}
+      {%- endcase -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}
+{%- if img_src != "" -%}
+<figure class="{{ include.class | default: 'figure' }}">
+{%- if include.zoom -%}<a class="figure-zoom" href="{{ img_src | uri_escape }}">{%- endif -%}
+<img src="{{ img_src | uri_escape }}" alt="{{ include.alt | escape }}" loading="lazy" decoding="async">
+{%- if include.zoom -%}</a>{%- endif -%}
+{%- if include.caption -%}<figcaption>{{ include.caption }}</figcaption>{%- endif -%}</figure>
+{%- endif -%}

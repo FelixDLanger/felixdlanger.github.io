@@ -1,0 +1,109 @@
+---
+---
+{%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
+{%- assign orcid = site.orcid | strip | remove: "https://orcid.org/" | remove: "http://orcid.org/" | remove: "orcid.org/" -%}
+{%- assign scholar = site.google_scholar | strip -%}
+{%- assign papers = site.data.papers | sort: "posted" | reverse -%}
+{%- assign guide_live = false -%}
+{%- for f in site.static_files -%}{%- if f.path == "/asia-pacific/index.html" -%}{%- assign guide_live = true -%}{%- endif -%}{%- endfor -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Felix Diego Langer – Enterprise architect and researcher</title>
+<meta name="description" content="Enterprise architect and researcher in AI governance, valuation and digital finance. Working papers, frameworks and browser tools, from Bangkok.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felix Diego Langer">
+<meta property="og:title" content="Felix Diego Langer – Enterprise architect and researcher">
+<meta property="og:description" content="AI governance, valuation and digital finance: working papers, frameworks and tools.">
+<meta property="og:url" content="{{ base }}/">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Felix Diego Langer",
+  "url": "{{ base }}/",
+  "description": "Enterprise architect and researcher in AI governance, valuation and digital finance.",
+  "worksFor": {"@type": "Organization", "name": "SAP"},
+  "alumniOf": {"@type": "CollegeOrUniversity", "name": "Karlsruhe Institute of Technology"},
+  "homeLocation": {"@type": "Place", "name": "Bangkok, Thailand"},
+  "knowsAbout": ["Enterprise architecture", "AI governance", "Enterprise architecture governance", "AI adoption", "Valuation", "Tokenization", "Digital finance", "Sovereign wealth funds", "Reserve currencies"],
+  "sameAs": [{% if orcid != "" %}
+    "https://orcid.org/{{ orcid }}",{% endif %}{% if scholar != "" %}
+    {{ scholar | jsonify }},{% endif %}
+    "https://www.linkedin.com/in/felix-langer-2a8425168/",
+    "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508",
+    "https://github.com/felixdlanger",
+    "https://medium.com/@FelixLanger",
+    "https://www.instagram.com/felixdl7/"
+  ]
+}
+</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html" aria-current="page">Felix Diego Langer</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="research.html">Research</a>
+    <a href="frameworks.html">Frameworks &amp; tools</a>
+    <a href="about.html">About</a>
+    <a href="beyond.html">Beyond work</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="hero wrap" aria-labelledby="name">
+    <h1 class="hero-name" id="name">Felix Diego Langer</h1>
+    <p class="hero-role">Enterprise architect and researcher in AI&nbsp;governance, valuation and digital finance.</p>
+    <p class="hero-sub">I work on enterprise transformation and AI adoption at SAP in Bangkok. My research follows value across three scales: firms, tokenized assets, and Singapore’s sovereign reserves. My doctorate joins the last two, asking what blockchain means for the infrastructure behind reserve currencies. And I build tools to test each idea.</p>
+  </section>
+
+  <section class="section wrap" aria-labelledby="questions-h">
+    <h2 class="section-head" id="questions-h">Questions I work on</h2>
+    <ul class="questions section-body is-wide">
+      <li><a href="research.html#doctorate"><span class="q">What role will blockchain play in the infrastructure behind reserve currencies, and where does Singapore stand?</span><span class="q-meta">From Tigers to Tokens, doctoral thesis, expected 2027</span></a></li>
+      {%- for p in papers -%}
+      {%- if p.question %}
+      <li><a href="frameworks.html#{{ p.anchor }}"><span class="q">{{ p.question }}</span><span class="q-meta">{{ p.framework }}, working paper from {{ p.posted | date: "%B %Y" }}</span></a></li>
+      {%- endif -%}
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="section wrap" aria-labelledby="site-h">
+    <h2 class="section-head" id="site-h">On this site</h2>
+    <dl class="index section-body is-wide">
+      <div class="index-row"><dt><a href="research.html">Research</a></dt><dd>Four research lines: AI governance, valuation, digital finance, and Singapore and Asian macro. Working papers on SSRN, and a doctorate at GlobalNxt University that joins the last two.</dd></div>
+      <div class="index-row"><dt><a href="frameworks.html">Frameworks &amp; tools</a></dt><dd>The models behind the papers, from the scale of a country down to a single trip, and four tools you can use in the browser.</dd></div>
+      <div class="index-row"><dt><a href="about.html">About</a></dt><dd>Background, and the personal frameworks I live by.</dd></div>
+      <div class="index-row"><dt><a href="beyond.html">Beyond work</a></dt><dd>{% if guide_live %}Photographs, a map of the countries I have visited, and an annotated travel guide to Asia-Pacific.{% else %}Photographs, and a map of the countries I have visited.{% endif %}</dd></div>
+    </dl>
+  </section>
+</main>
+
+<footer class="site-footer wrap">
+  <p>Felix Diego Langer, Bangkok<span class="footer-note">Views are my own, not my employer’s.</span></p>
+  <ul class="link-row" aria-label="Profiles">
+    <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+    <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN</a></li>
+    <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+    <li><a href="https://medium.com/@FelixLanger">Medium</a></li>
+    <li><a href="https://www.instagram.com/felixdl7/">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

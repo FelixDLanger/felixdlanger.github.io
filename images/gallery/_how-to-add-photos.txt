@@ -1,0 +1,9 @@
+Photos you upload to this folder appear on the Beyond work page automatically.
+
+- Formats: .jpg, .jpeg, .png, .webp (not .heic – on iPhone choose "Most Compatible" or export as JPEG).
+- Size: about 2000 px on the long side keeps the page fast (max. 25 MB per file when uploading in the browser).
+- Order: photos are sorted by file name. Start names with a number to set the order: 01-..., 02-...
+- Caption: the file name becomes the caption. "03-singapore-marina-bay.jpg" shows as "Singapore marina bay".
+- Remove a photo: open it here on GitHub, then use the "..." menu > Delete file.
+
+This file itself is ignored by the website because its name starts with an underscore.

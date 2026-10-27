@@ -1,0 +1,142 @@
+---
+---
+{%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Frameworks &amp; tools – Felix Diego Langer</title>
+<meta name="description" content="The Fiscal Infrastructure Ladder, the Concentric Value Model, TAVE, Core Integrity, the Governance Observability Ladder and FlightCompass: what each framework asks, what the evidence shows, and tools to run in the browser.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felix Diego Langer">
+<meta property="og:title" content="Frameworks &amp; tools – Felix Diego Langer">
+<meta property="og:description" content="Six frameworks, from the scale of a country down to a single trip, with the papers and browser tools behind them.">
+<meta property="og:url" content="{{ base }}/frameworks.html">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html">Felix Diego Langer</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="research.html">Research</a>
+    <a href="frameworks.html" aria-current="page">Frameworks &amp; tools</a>
+    <a href="about.html">About</a>
+    <a href="beyond.html">Beyond work</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-intro wrap">
+    <h1>Frameworks &amp; tools</h1>
+    <p class="lede">Each framework starts from one question and ends in something you can check: a paper with the evidence and, where it helps, a tool you can run in the browser. They run from the scale of a country down to a single trip.</p>
+  </section>
+
+  <article class="section framework wrap" id="fiscal-infrastructure-ladder" aria-labelledby="fil-h">
+    <h2 class="section-head" id="fil-h">Fiscal Infrastructure Ladder<span class="aside">Countries</span></h2>
+    <div class="section-body">
+      <p class="fw-question">Is Singapore’s reserve income a fiscal multiplier, or infrastructure?</p>
+      <p>From 1994 to 2023, Singapore’s real GDP, the Net Investment Returns Contribution from its reserves, and its population move together in the long run, and about 55% of any deviation is corrected within a year. The ladder reads that pattern as fiscal infrastructure rather than a fiscal multiplier, and gives a lens for comparing how other states build the same institutions.</p>
+      <ul class="actions">
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6794701">Read the paper</a></li>
+      </ul>
+      {% include image.html name="fiscal-infrastructure-ladder" alt="Diagram of the Fiscal Infrastructure Ladder" %}
+    </div>
+  </article>
+
+  <article class="section framework wrap" id="concentric-value-model" aria-labelledby="cvm-h">
+    <h2 class="section-head" id="cvm-h">Concentric Value Model<span class="aside">Companies</span></h2>
+    <div class="section-body">
+      <p class="fw-question">Which companies are worth owning when most of their value is intangible?</p>
+      <p>Graham’s value investing was built for tangible assets and quieter markets. The model adapts it to companies whose value sits in intangibles and whose prices are shaped by options activity, with ten dimensions arranged in six layers. Tested on 200 large caps from 2016 to 2025, its sector-allocation rules beat an equal-weight benchmark, while picking individual stocks mainly helped during COVID-19. It works best as a sector-quality classifier.</p>
+      <p>The tool scores a listed company across the ten dimensions and returns a composite score, a Graham quartile, and bear, base and bull scenarios.</p>
+      <ul class="actions">
+        <li><a href="https://felixdlanger.github.io/Concentric_Value_Model/">Open the tool</a></li>
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6846940">Read the paper</a></li>
+      </ul>
+      {% include image.html name="concentric-value-model" alt="Diagram of the Concentric Value Model" %}
+    </div>
+  </article>
+
+  <article class="section framework wrap" id="tave" aria-labelledby="tave-h">
+    <h2 class="section-head" id="tave-h">Tokenized Asset Valuation Engine<span class="aside">Assets</span></h2>
+    <div class="section-body">
+      <p class="fw-question">What does tokenizing an asset do to its cost of capital?</p>
+      <p>Tokenizing an asset can change a firm’s cost of capital in several ways at once. TAVE separates five channels in a weighted-average-cost-of-capital model, liquidity among them, and tests the framework with an event study of tokenization announcements and practitioner evidence.</p>
+      <p>The tool shows how the modeled cost of capital and enterprise value respond to the inputs you set: book value, share tokenized, token liquidity, jurisdiction and blockchain. It is a research instrument, not a valuation or advice.</p>
+      <ul class="actions">
+        <li><a href="https://felixdlanger.github.io/tave-event-study/">Open the tool</a></li>
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7463278">Read the paper</a></li>
+      </ul>
+      {% include image.html name="tave" alt="Diagram of the Tokenized Asset Valuation Engine" %}
+    </div>
+  </article>
+
+  <article class="section framework wrap" id="core-integrity" aria-labelledby="ciaof-h">
+    <h2 class="section-head" id="ciaof-h">Core Integrity Adherence–Outcome Framework<span class="aside">Enterprise systems</span></h2>
+    <div class="section-body">
+      <p class="fw-question">Does architectural discipline show up in a firm’s results?</p>
+      <p>Enterprise platforms come with advice: keep the core system unmodified and integrate through governed interfaces. The framework asks whether following that advice shows up in performance, using a panel of 167 large US filers from 2019 to 2025. The evidence does not support a general rule. The right level of discipline is firm-specific, and the paper maps the limits of what pooled public data can show.</p>
+      <p>Because no universal rule holds, the framework ends in a decision matrix rather than a benchmark. It places each business capability by its business impact and by how well the standard product fits it, and sets the treatment, from “standard, zero deviation” to “extend beside the core”. A regulatory obligation overrides the quadrant.</p>
+      <ul class="actions">
+        <li><a href="https://felixdlanger.github.io/eagi-research/">Open the tool</a></li>
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7445559">Read the paper</a></li>
+        <li><a href="https://github.com/FelixDLanger/ciaof-research">Code and results</a></li>
+      </ul>
+    </div>
+    {% include image.html name="core-integrity" alt="The CIAOF decision matrix, which classifies each business capability by business impact and standard fit and sets its treatment, next to five operating rules derived from the evidence." class="figure figure-wide section-wide" zoom=true caption="The Core Integrity decision matrix and its operating frame. Select the figure to open it at full size." %}
+  </article>
+
+  <article class="section framework wrap" id="eagi" aria-labelledby="eagi-h">
+    <h2 class="section-head" id="eagi-h">Governance Observability Ladder<span class="aside">Governance and AI</span></h2>
+    <div class="section-body">
+      <p class="fw-question">Can enterprise-architecture governance be measured from what firms disclose?</p>
+      <p>Most claims about governance rest on what firms choose to say. The EAGI paper tests that across 950 firm-years of 167 large US filers from 2019 to 2025. An index built from voluntary annual-report text fails as a measure, while the same method works on AI vocabulary, so the failure lies in the construct rather than the technique. What can be observed depends on what regulation compels and auditors attest. The ladder orders five public sources on that basis, from voluntary narrative to attested control failures, and sets five tests a source must pass before it is used.</p>
+      <p>The forward-looking part concerns AI. Across firms, a more disciplined core, meaning a standard core with harmonized data and governed interfaces, predicts more AI adoption disclosed the following year. Governance disclosure does not. The result is exploratory and still to be re-tested on new data, and the paper does not show that AI pays more on a disciplined core.</p>
+      <p>The TRVA Navigator applies the ladder and the Core Integrity matrix to an enterprise’s own situation. It runs entirely in the browser, and nothing you enter leaves the page.</p>
+      <ul class="actions">
+        <li><a href="https://felixdlanger.github.io/eagi-research/">Open the tool</a></li>
+        <li><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=7654858">Read the paper</a></li>
+        <li><a href="https://github.com/FelixDLanger/eagi-research">Code and results</a></li>
+      </ul>
+    </div>
+    {% include image.html name="eagi" alt="The Governance Observability Ladder: five public disclosure sources ordered by regulatory compulsion and attestation, five tests a source must pass, and the exploratory finding that a disciplined core predicts later AI adoption while governance disclosure does not." class="figure figure-wide section-wide" zoom=true caption="The Governance Observability Ladder, its placement tests and the AI component. Select the figure to open it at full size." %}
+  </article>
+
+  <article class="section framework wrap" id="flightcompass" aria-labelledby="fc-h">
+    <h2 class="section-head" id="fc-h">FlightCompass<span class="aside">Trips</span></h2>
+    <div class="section-body">
+      <p class="fw-question">What will this trip really cost?</p>
+      <p>FlightCompass compares the ways to pay for the same journey: cash fares, miles, cashback portals, currency-based booking and premium-card hotel programs, across more than 60 origin hubs and 100 destinations. It marks the cheapest airport on a world map and scores each strategy out of 100 for every route.</p>
+      <ul class="actions">
+        <li><a href="https://felixdlanger.github.io/FlightCompass/">Open the tool</a></li>
+      </ul>
+      {% include image.html name="flightcompass" alt="Screenshot of FlightCompass" %}
+    </div>
+  </article>
+</main>
+
+<footer class="site-footer wrap">
+  <p>Felix Diego Langer, Bangkok<span class="footer-note">Views are my own, not my employer’s.</span></p>
+  <ul class="link-row" aria-label="Profiles">
+    <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+    <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN</a></li>
+    <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+    <li><a href="https://medium.com/@FelixLanger">Medium</a></li>
+    <li><a href="https://www.instagram.com/felixdl7/">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

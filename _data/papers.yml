@@ -1,0 +1,65 @@
+# Working papers. They appear on the Research page (newest first) and as questions on the home page.
+#
+# To add a paper: copy one block below, paste it at the top, and change the values.
+#   - Keep the two-space indentation and the dash in front of "key".
+#   - Put text in "double quotes" (titles contain colons, which YAML would otherwise misread).
+#   - posted is the SSRN posting date as YYYY-MM-DD; the site shows the month and year. Leave pages empty if you don't want to show it.
+#   - anchor is the section on frameworks.html the home-page question links to.
+
+- key: eagi
+  title: "What Public Disclosure Cannot Measure: Enterprise-Architecture Governance, the Failure of a Voluntary-Text Instrument, and a Mandatory-Disclosure Alternative"
+  ssrn: 7654858
+  posted: 2026-10-23
+  pages: 40
+  framework: Governance Observability Ladder
+  anchor: eagi
+  question: "Can enterprise-architecture governance be measured from what firms disclose?"
+  summary: "Tests whether enterprise-architecture governance can be read from public disclosure, across 950 firm-years of 167 large US filers from 2019 to 2025. A voluntary-text index fails while the same method works on AI vocabulary, so the paper orders disclosure sources by regulatory compulsion and attestation in a Governance Observability Ladder. As an exploratory result, firms with a more disciplined core disclose more AI adoption the following year; governance disclosure does not predict it."
+  tool: https://felixdlanger.github.io/eagi-research/
+  tool_name: TRVA Navigator
+
+- key: tave
+  title: "Tokenization and the Cost of Capital: A Five-Channel Valuation Framework with Event-Study and Practitioner Evidence"
+  ssrn: 7463278
+  posted: 2026-09-17
+  pages: 41
+  framework: Tokenized Asset Valuation Engine
+  anchor: tave
+  question: "What does tokenizing an asset do to its cost of capital?"
+  summary: "Models how tokenizing enterprise assets changes a firm’s cost of capital through five channels, liquidity among them, and tests the framework with an event study of tokenization announcements and practitioner evidence."
+  tool: https://felixdlanger.github.io/tave-event-study/
+  tool_name: TAVE
+
+- key: core-integrity
+  title: "Core Integrity as a Firm Characteristic: Allocation, Level, and the Limits of Public-Data Inference on Architectural Discipline"
+  ssrn: 7445559
+  posted: 2026-09-12
+  pages: 29
+  framework: Core Integrity Adherence–Outcome Framework
+  anchor: core-integrity
+  question: "Does architectural discipline show up in a firm’s results?"
+  summary: "Tests whether firms that keep their core enterprise platform standard and integrate through governed interfaces perform better, using 167 large US filers from 2019 to 2025. The evidence does not support a general rule: the right level of discipline is firm-specific and can’t be read from pooled public data."
+  tool: https://felixdlanger.github.io/eagi-research/
+  tool_name: TRVA Navigator
+
+- key: cvm
+  title: "The Concentric Value Model - A Modern Framework for Evaluating Public Companies and Stock Price Performance for Contemporary Capital Markets"
+  ssrn: 6846940
+  posted: 2026-06-15
+  pages: 35
+  framework: Concentric Value Model
+  anchor: concentric-value-model
+  question: "Which companies are worth owning when most of their value is intangible?"
+  summary: "Adapts Graham-style value investing to intangible-heavy, derivatives-influenced markets with a six-layer, ten-dimension model, tested on 200 large caps from 2016 to 2025. It works best as a sector-quality classifier rather than as a stand-alone stock-selection signal."
+  tool: https://felixdlanger.github.io/Concentric_Value_Model/
+  tool_name: Concentric Value Model
+
+- key: singapore-swf
+  title: "Singapore’s Sovereign Wealth Strategy: A Cointegration Analysis of GDP, Net Investment Returns Contribution, and Fiscal Sustainability (1994-2023)"
+  ssrn: 6794701
+  posted: 2026-05-29
+  pages: 48
+  framework: Fiscal Infrastructure Ladder
+  anchor: fiscal-infrastructure-ladder
+  question: "Is Singapore’s reserve income a fiscal multiplier, or infrastructure?"
+  summary: "Finds a long-run relationship between Singapore’s real GDP, the Net Investment Returns Contribution from its reserves, and population over 1994 to 2023, with about 55% of any deviation corrected within a year, and argues the NIRC works as fiscal infrastructure rather than as a fiscal multiplier."

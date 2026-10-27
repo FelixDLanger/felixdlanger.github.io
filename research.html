@@ -1,0 +1,118 @@
+---
+---
+{%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
+{%- assign orcid = site.orcid | strip | remove: "https://orcid.org/" | remove: "http://orcid.org/" | remove: "orcid.org/" -%}
+{%- assign scholar = site.google_scholar | strip -%}
+{%- assign papers = site.data.papers | sort: "posted" | reverse -%}
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Research – Felix Diego Langer</title>
+<meta name="description" content="Working papers by Felix Diego Langer on SSRN, and doctoral research at GlobalNxt University on Singapore, blockchain and the future of reserve currencies.">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Felix Diego Langer">
+<meta property="og:title" content="Research – Felix Diego Langer">
+<meta property="og:description" content="Working papers on AI and enterprise-architecture governance, valuation, tokenization and sovereign wealth, and doctoral research on Singapore and reserve currencies.">
+<meta property="og:url" content="{{ base }}/research.html">
+<meta property="og:image" content="{{ base }}/assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="preload" href="assets/fonts/source-serif-4-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="site-header wrap">
+  <a class="wordmark" href="index.html">Felix Diego Langer</a>
+  <nav class="site-nav" aria-label="Main">
+    <a href="research.html" aria-current="page">Research</a>
+    <a href="frameworks.html">Frameworks &amp; tools</a>
+    <a href="about.html">About</a>
+    <a href="beyond.html">Beyond work</a>
+  </nav>
+</header>
+
+<main id="main">
+  <section class="page-intro wrap">
+    <h1>Research</h1>
+    <p class="lede">I study how firms, assets and states create value, and how to measure it where standard metrics fall short: intangible-heavy companies, tokenized assets, sovereign wealth, and the architecture and governance that enterprise AI depends on.</p>
+  </section>
+
+  <section class="section wrap" aria-labelledby="lines-h">
+    <h2 class="section-head" id="lines-h">Research lines</h2>
+    <dl class="index section-body is-wide">
+      <div class="index-row"><dt><a href="#eagi">AI governance</a></dt><dd>Whether the architecture and governance that enterprise AI depends on can be observed, measured and decided on. Two working papers: Core Integrity and EAGI.</dd></div>
+      <div class="index-row"><dt><a href="#cvm">Valuation</a></dt><dd>How to value companies whose worth is mostly intangible. The Concentric Value Model.</dd></div>
+      <div class="index-row"><dt><a href="#tave">Digital finance</a></dt><dd>What tokenization does to an asset’s cost of capital, and what blockchain means for money. TAVE, and the doctorate.</dd></div>
+      <div class="index-row"><dt><a href="#singapore-swf">Singapore and Asian macro</a></dt><dd>How Singapore turned reserve income into fiscal infrastructure, and what its blockchain strategy means for the infrastructure behind reserve currencies. The sovereign-wealth paper, and the doctorate, which joins this line to digital finance.</dd></div>
+    </dl>
+  </section>
+
+  <section class="section wrap" aria-labelledby="papers-h">
+    <h2 class="section-head" id="papers-h">Working papers<span class="aside">Published on SSRN</span></h2>
+    <ul class="papers section-body">
+      {%- for p in papers %}
+      <li class="paper" id="{{ p.key }}">
+        <h3 class="paper-title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id={{ p.ssrn }}">{{ p.title }}</a></h3>
+        <p class="paper-summary">{{ p.summary }}</p>
+        <p class="paper-cite">SSRN working paper{% if p.pages %}, {{ p.pages }} pages{% endif %}, {{ p.posted | date: "%B %Y" }}.{% if p.tool %} <a href="{{ p.tool }}">Open the {{ p.tool_name }} tool</a>.{% endif %}</p>
+      </li>
+      {%- endfor %}
+    </ul>
+  </section>
+
+  <section class="section wrap" id="doctorate" aria-labelledby="dba-h">
+    <h2 class="section-head" id="dba-h">Doctoral research</h2>
+    <div class="section-body prose">
+      <p><strong>Doctor of Business Administration</strong>, GlobalNxt University, expected 2027.</p>
+      <p>Working title: <cite>From Tigers to Tokens: Singapore’s Blockchain Strategy and the Future of Reserve Currency Infrastructure</cite>.</p>
+      <p>The thesis follows Singapore from the Asian Tiger era to its blockchain strategy today, and asks what role blockchain and tokenization could play in the infrastructure behind reserve currencies. It combines expert interviews with a quantitative analysis of reserve-composition data.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="edu-h">
+    <h2 class="section-head" id="edu-h">Education</h2>
+    <div class="section-body prose">
+      <p>Karlsruhe Institute of Technology (KIT): MSc and BSc in Industrial Engineering.</p>
+    </div>
+  </section>
+
+  <section class="section wrap" aria-labelledby="profiles-h">
+    <h2 class="section-head" id="profiles-h">Profiles</h2>
+    <div class="section-body">
+      <ul class="link-row">
+        <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN author page</a></li>
+        {%- if orcid != "" %}
+        <li><a href="https://orcid.org/{{ orcid }}">ORCID</a></li>
+        {%- endif %}
+        {%- if scholar != "" %}
+        <li><a href="{{ scholar }}">Google Scholar</a></li>
+        {%- endif %}
+        <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+        <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer wrap">
+  <p>Felix Diego Langer, Bangkok<span class="footer-note">Views are my own, not my employer’s.</span></p>
+  <ul class="link-row" aria-label="Profiles">
+    <li><a href="https://www.linkedin.com/in/felix-langer-2a8425168/">LinkedIn</a></li>
+    <li><a href="https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=11626508">SSRN</a></li>
+    <li><a href="https://github.com/felixdlanger">GitHub</a></li>
+    <li><a href="https://medium.com/@FelixLanger">Medium</a></li>
+    <li><a href="https://www.instagram.com/felixdl7/">Instagram</a></li>
+  </ul>
+</footer>
+</body>
+</html>

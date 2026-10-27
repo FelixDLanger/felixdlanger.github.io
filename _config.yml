@@ -1,0 +1,19 @@
+# Settings for GitHub Pages. You shouldn't need to change this first part.
+# "theme: null" stops GitHub from wrapping pages in its default theme.
+theme: null
+exclude:
+  - README.md
+  - github   # a copy of the .github folder without the dot is never published
+# Generates sitemap.xml and robots.txt so search engines find every page.
+plugins:
+  - jekyll-sitemap
+# Google Search Console's verification file (google….html) stays online but out of the sitemap.
+defaults:
+  - scope:
+      path: "google*.html"
+    values:
+      sitemap: false
+# Research profiles. Fill these in when you have them; they then appear on Research and in the
+# information search engines read about you. Leave them empty to hide them.
+orcid: "0009-0000-3205-8088"   # your ORCID iD
+google_scholar: ""   # the full address of your Google Scholar profile
