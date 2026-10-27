@@ -2,12 +2,14 @@
 """Review of the visa rules shown on Beyond work (assets/map/visa-de.json).
 
 Run by .github/workflows/visa-check.yml. It never edits the data: official rules, open datasets
-and news often disagree, so a person decides. It lists what needs a look:
-  1. rules whose note gives an end date that has passed or is close,
-  2. where the open Passport Index dataset (MIT license) says something else, and how old that dataset is,
-  3. how old the data on the site is.
-Runs in January, April, July and October, and manual runs, produce the full quarterly review. Other months
-report only an end date that has passed since the previous monthly run.
+and news often disagree, so a person decides. Every run writes a full report; an issue is opened only when
+an entry needs a check ("flagged"):
+  1. a rule whose note gives an end date that has passed: in other months only if it passed since the previous
+     monthly run; in January, April, July, October and manual runs every one still past its end date,
+  2. an entry the open Passport Index dataset (MIT license) disagrees with, when the dataset was updated after
+     the entry was last checked (its own "r" date if it has one, otherwise the file's "asOf").
+Rules ending within two months are listed for information. The report ends with a machine-readable line,
+<!-- flagged: CODE,CODE --> or <!-- flagged: none -->, which the scheduled Claude follow-up reads.
 
 Environment (all optional): TODAY=YYYY-MM-DD, FULL_REVIEW=true, GH_TOKEN (raises the GitHub API rate limit),
 VISA_DATASET_FILE and VISA_DATASET_DATE (use a local copy of the dataset instead of downloading it).
@@ -139,7 +141,7 @@ def differences(countries, dataset):
         theirs_days, ours_days = src.get("days"), stay_days(entry.get("s"))
         if cat != entry["c"] or (theirs_days and ours_days and abs(theirs_days - ours_days) > 3):
             theirs = LABEL[cat] + (f", {theirs_days} days" if theirs_days else "")
-            rows.append((entry["name"], rule(entry), theirs))
+            rows.append((code, entry["name"], rule(entry), theirs))
     return rows
 
 
@@ -156,70 +158,96 @@ def main():
     doc = json.loads(DATA.read_text())
     countries, as_of = doc["countries"], dt.date.fromisoformat(doc["asOf"])
 
-    passed, soon, just_passed = [], [], []
-    for entry in sorted(countries.values(), key=lambda e: e["name"]):
+    def checked(entry):  # when an entry was last confirmed: its own "r" date if later, else the data's as-of date
+        try:
+            return max(as_of, dt.date.fromisoformat(entry["r"])) if entry.get("r") else as_of
+        except ValueError:
+            return as_of
+
+    passed, soon, flags = [], [], {}   # flags: country code -> reason, in report order
+    for code, entry in sorted(countries.items(), key=lambda kv: kv[1]["name"]):
         for end in end_dates(entry.get("n")):
             if end < today:
+                if checked(entry) >= end:   # confirmed after the date passed: the note keeps it on purpose
+                    continue
                 passed.append((entry["name"], rule(entry), f"{long_date(end)}, passed"))
-                if (today - end).days <= MONTHLY_WINDOW:
-                    just_passed.append(entry["name"])
+                if full or (today - end).days <= MONTHLY_WINDOW:
+                    flags.setdefault(code, f"its end date, {long_date(end)}, has passed")
             elif (end - today).days <= SOON_DAYS:
                 soon.append((entry["name"], rule(entry), f"{long_date(end)}, in {(end - today).days} days"))
 
-    dataset_note, diff_rows, newer = "", [], False
+    dataset_note, newer_rows, lead_rows = "", [], []
     try:
         dataset, stamp = load_dataset()
-        diff_rows = differences(countries, dataset)
-        newer = bool(stamp and stamp > as_of)
+        for row in differences(countries, dataset):
+            (newer_rows if stamp and stamp > checked(countries[row[0]]) else lead_rows).append(row)
+        for row in newer_rows:
+            flags.setdefault(row[0], f"the open dataset, updated after it was last checked, says {row[3]}")
         when = f"was last updated on **{long_date(stamp)}**" if stamp else "has no readable update date"
-        if newer:
-            dataset_note = (f"The open [Passport Index dataset]({DATASET_PAGE}) {when}, after your data, "
+        if newer_rows:
+            dataset_note = (f"The open [Passport Index dataset]({DATASET_PAGE}) {when}, after the entries below were last checked, "
                             "so these may be real changes. Confirm each with an official source before you change anything.")
+        elif lead_rows:
+            dataset_note = (f"The open [Passport Index dataset]({DATASET_PAGE}) {when}, before these entries were last checked, "
+                            "so treat the differences as leads rather than facts.")
         else:
-            dataset_note = (f"The open [Passport Index dataset]({DATASET_PAGE}) {when}, before your data, "
-                            "so treat these as leads rather than facts.")
+            dataset_note = f"The open [Passport Index dataset]({DATASET_PAGE}) {when} and agrees with the site."
     except Exception as e:
         dataset_note = f"The open Passport Index dataset could not be read this time ({type(e).__name__}: {e})."
 
+    names = [countries[c]["name"] for c in flags]
     if manual:
         title = f"Visa rules: check of {long_date(today)}"
     elif full:
         title = f"Visa rules: quarterly check, {today.strftime('%B')} {today.year}"
-    elif just_passed:
-        title = "Visa rules: an end date has passed (" + ", ".join(just_passed) + ")"
     else:
-        title = ""
-    report = bool(title)
+        parts = []
+        ended = [countries[c]["name"] for c, why in flags.items() if why.startswith("its end date")]
+        newer_n = len(flags) - len(ended)
+        if ended:
+            parts.append("an end date has passed (" + ", ".join(ended) + ")")
+        if newer_n:
+            parts.append(f"newer open data differs for {newer_n} {'entry' if newer_n == 1 else 'entries'}")
+        title = "Visa rules: " + " and ".join(parts) if parts else ""
+    report = bool(flags)
 
     lines = [f"The visa view on Beyond work shows rules for German passport holders as of **{long_date(as_of)}** "
-             f"({(today - as_of).days} days ago). Official source: {doc['check']}", ""]
+             f"({(today - as_of).days} days ago). Official source: {doc['check']}", "", "### What needs a check", ""]
+    if flags:
+        lines += [f"- **{countries[c]['name']}** (`{c}`): {why}." for c, why in flags.items()] + [""]
+    else:
+        lines += ["Nothing this time.", ""]
     if passed or soon:
         lines += ["### Rules with an end date", "", table(["Country", "On the site", "End date"], passed + soon), ""]
     else:
         lines += ["### Rules with an end date", "", "None has passed or ends in the next two months.", ""]
     lines += ["### Where an open dataset differs", "", dataset_note, ""]
-    if diff_rows:
-        body = table(["Country", "On the site", "Dataset"], diff_rows)
-        if newer:
-            lines += [body, ""]
-        else:
-            lines += [f"<details><summary>{len(diff_rows)} differences</summary>", "", body, "", "</details>", ""]
-    flagged = [r[0] for r in passed + soon] + ([r[0] for r in diff_rows] if newer else [])
+    if newer_rows:
+        lines += [table(["Country", "On the site", "Dataset"], [r[1:] for r in newer_rows]), ""]
+    if lead_rows:
+        label = f"{len(lead_rows)} older differences" if newer_rows else f"{len(lead_rows)} differences"
+        lines += [f"<details><summary>{label}</summary>", "", table(["Country", "On the site", "Dataset"], [r[1:] for r in lead_rows]), "", "</details>", ""]
     lines += ["### How to update", "",
+              "A scheduled Claude task looks for this issue a few hours after the check, researches the entries under "
+              "*What needs a check* in official sources and opens a pull request. Review it and press **Merge**; that also closes this issue. "
+              "To do it yourself instead:", "",
               "1. Open `assets/map/visa-de.json`, press the pencil icon and change the country's `c` (category: "
-              "`free`, `eta`, `voa`, `evisa` or `visa`), `s` (allowed stay) and `n` (note).",
-              "2. Set `asOf` to today's date and commit. The site updates within a minute or two.",
+              "`free`, `eta`, `voa`, `evisa` or `visa`), `s` (allowed stay) and `n` (note). Write an end date as "
+              "`until 31 Dec 2027`, so this check can track it.",
+              "2. Add `\"r\": \"YYYY-MM-DD\"` with today's date to each entry you checked, changed or not. Leave `asOf` alone: "
+              "it dates the full compilation. Commit; the site updates within a minute or two.",
               "3. Close this issue.", "",
-              "Or let Claude do the research. Paste this, with a link to the file:", "",
+              "Or paste this into Claude, with a link to the file:", "",
               "> Check these entries in my visa-de.json against the Auswärtiges Amt and each destination's official "
-              "immigration site, and give me the corrected file with asOf updated: "
-              + (", ".join(dict.fromkeys(flagged)) if flagged else "every entry whose rule may have changed since " + long_date(as_of)) + ".",
-              "", "_Opened by `.github/workflows/visa-check.yml`. It checks on the 2nd of every month and writes the full review each quarter, in January, April, July and October._"]
+              "immigration site, and give me the corrected file with \"r\" set to today on each entry you checked: "
+              + (", ".join(names) if names else "none") + ".",
+              "", "_Opened by `.github/workflows/visa-check.yml`, which checks on the 2nd of every month and opens an issue only when an entry needs a check._",
+              "", f"<!-- flagged: {','.join(flags) if flags else 'none'} -->"]
 
     out_dir = pathlib.Path(os.environ.get("RUNNER_TEMP") or tempfile.gettempdir())
     path = out_dir / "visa-report.md"
     path.write_text("\n".join(lines) + "\n")
-    outputs = {"report": "true" if report else "false", "title": title, "file": str(path)}
+    outputs = {"report": "true" if report else "false", "title": title, "file": str(path), "flagged": ",".join(flags)}
     if os.environ.get("GITHUB_OUTPUT"):
         with open(os.environ["GITHUB_OUTPUT"], "a") as fh:
             for k, v in outputs.items():

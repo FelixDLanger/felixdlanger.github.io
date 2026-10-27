@@ -1,7 +1,10 @@
 # Visa check for the map on Beyond work.
 # On the 2nd of every month this compares assets/map/visa-de.json with the end dates in its own notes
-# and with an open dataset, and opens an issue when something needs a look. Each quarter (January, April,
-# July, October) it writes the full review. It never edits the visa data itself; you decide, using the issue as a checklist.
+# and with an open dataset. It opens an issue only when an entry needs a check: an end date has passed, or
+# the dataset was updated after the entry was last checked and disagrees. Each quarter (January, April,
+# July, October) it also re-flags rules still past their end date. Every run's full report is on its
+# summary page. A scheduled Claude task picks up the issue, researches the flagged entries and opens a
+# pull request; this workflow never edits the visa data itself.
 # Run it any time from the Actions tab: Visa check → Run workflow.
 name: Visa check
 
@@ -33,7 +36,9 @@ jobs:
         id: review
         env:
           FULL_REVIEW: ${{ github.event_name == 'workflow_dispatch' }}
-        run: python3 .github/scripts/visa_check.py
+        run: |
+          python3 .github/scripts/visa_check.py
+          cat "$RUNNER_TEMP/visa-report.md" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Open or update the review issue
         if: steps.review.outputs.report == 'true'

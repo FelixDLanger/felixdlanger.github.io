@@ -175,7 +175,7 @@
     var label = v.m ? "freedom of movement" : VISA_LABEL[v.c];
     if (v.a) label += " (" + v.a + ")";
     var text = name + ": " + label + (v.s ? ", " + v.s : "");
-    if (full) text += (v.n ? ", " + v.n : "") + ".";
+    if (full) text += (v.n ? ", " + v.n : "") + "." + (v.r ? " Checked " + formatDate(v.r) + "." : "");
     return text;
   }
   function formatDate(iso) {
