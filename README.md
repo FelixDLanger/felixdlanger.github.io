@@ -46,7 +46,12 @@ You don't have to remember when. A check runs on the 2nd of every month (**Actio
 
 ## Search engines
 
-`sitemap.xml` and `robots.txt` are generated automatically. To see how people find the site, add it to Google Search Console as a **URL prefix** property (`https://felixdlanger.github.io/`), download the verification file Google offers, upload it here with **Add file → Upload files**, then submit `sitemap.xml` under **Sitemaps**. Keep that `google….html` file in the repository for good: Google checks it again from time to time, and deleting it ends the verification. It stays out of the sitemap by itself. Once you have your own domain, add it as a **Domain** property instead.
+`sitemap.xml` and `robots.txt` are generated automatically. To see how people find the site, add it to Google Search Console as a **URL prefix** property (`https://felixdlanger.github.io/`). Not as a **Domain** property: that one can only be verified with a DNS record, and the DNS of github.io belongs to GitHub. Then verify it in one of two ways:
+
+- **HTML tag** (easiest on a phone): copy the code inside `content="…"` from the tag Google shows, paste it between the quotes of `google_site_verification` in `_config.yml`, commit, wait a minute and press **Verify**.
+- **HTML file**: download the `google….html` file Google offers and upload it here with **Add file → Upload files**. It stays out of the sitemap by itself.
+
+Keep the code or the file for good: Google checks it again from time to time, and removing it ends the verification. Then submit `sitemap.xml` under **Sitemaps**. Once you have your own domain, add it as a **Domain** property instead.
 
 ## Your own domain
 

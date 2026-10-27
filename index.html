@@ -3,6 +3,9 @@
 {%- assign base = site.url | default: "https://felixdlanger.github.io" -%}
 {%- assign orcid = site.orcid | strip | remove: "https://orcid.org/" | remove: "http://orcid.org/" | remove: "orcid.org/" -%}
 {%- assign scholar = site.google_scholar | strip -%}
+{%- comment -%} Search Console "HTML tag" verification: the code alone, or the whole tag pasted by mistake, both work {%- endcomment -%}
+{%- assign gsv = site.google_site_verification | default: "" | strip -%}
+{%- if gsv contains 'content=' -%}{%- assign gsv = gsv | split: 'content=' | last | remove: '"' | remove: "'" | split: " " | first | remove: "/>" | remove: ">" -%}{%- endif -%}
 {%- assign papers = site.data.papers | sort: "posted" | reverse -%}
 {%- assign guide_live = false -%}
 {%- for f in site.static_files -%}{%- if f.path == "/asia-pacific/index.html" -%}{%- assign guide_live = true -%}{%- endif -%}{%- endfor -%}
@@ -13,6 +16,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Felix Diego Langer – Enterprise architect and researcher</title>
 <meta name="description" content="Enterprise architect and researcher in AI governance, valuation and digital finance. Working papers, frameworks and browser tools, from Bangkok.">
+{%- if gsv != "" %}
+<meta name="google-site-verification" content="{{ gsv | escape }}">
+{%- endif %}
 <meta name="color-scheme" content="light dark">
 <meta name="theme-color" content="#e7e9e3" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#0f1915" media="(prefers-color-scheme: dark)">

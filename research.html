@@ -65,6 +65,9 @@
         <h3 class="paper-title"><a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id={{ p.ssrn }}">{{ p.title }}</a></h3>
         <p class="paper-summary">{{ p.summary }}</p>
         <p class="paper-cite">SSRN working paper{% if p.pages %}, {{ p.pages }} pages{% endif %}, {{ p.posted | date: "%B %Y" }}.{% if p.tool %} <a href="{{ p.tool }}">Open the {{ p.tool_name }} tool</a>.{% endif %}</p>
+        {%- capture fig_alt -%}{{ p.framework }} diagram: see the framework{%- endcapture -%}
+        {%- capture fig_href -%}frameworks.html#{{ p.anchor }}{%- endcapture %}
+        {% include image.html name=p.anchor alt=fig_alt href=fig_href class="figure paper-figure" %}
       </li>
       {%- endfor %}
     </ul>

@@ -17,3 +17,5 @@ defaults:
 # information search engines read about you. Leave them empty to hide them.
 orcid: "0009-0000-3205-8088"   # your ORCID iD
 google_scholar: ""   # the full address of your Google Scholar profile
+# Google Search Console, "HTML tag" option: paste only the code between content=" and the closing quote.
+google_site_verification: ""

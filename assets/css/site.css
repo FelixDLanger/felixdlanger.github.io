@@ -269,11 +269,21 @@ a:hover { text-decoration-thickness: 2px; }
 .figure-wide img { max-width: 100%; background: #fff; }
 .figure-zoom { display: block; cursor: zoom-in; }
 .figure-zoom:focus-visible { outline-offset: 4px; }
+/* a framework diagram under each paper on Research, linking to the framework */
+.paper-figure { margin-top: 1rem; }
+.paper-figure .figure-link { max-width: min(30rem, 100%); }
+.paper-figure img { max-width: 100%; background: #fff; }
+.figure-link { display: block; }
+.figure-link:hover img { opacity: .9; }
+.figure-link:focus-visible { outline-offset: 4px; }
+/* an image that brings its own rounded card, such as an app screenshot */
+.figure-card img { max-width: min(24rem, 100%); border: 0; background: none; }
 
 /* ---------- About ---------- */
 .about-intro { display: grid; gap: 1.5rem 2.5rem; padding-block: clamp(2.5rem, 9vw, 6rem) 0; }
 .about-intro .portrait { margin: 0; width: min(9.5rem, 40vw); }
 .about-intro .portrait img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 2px; }
+.about-intro .portrait figcaption { margin-top: .375rem; font-size: .75rem; line-height: 1.35; color: var(--ink-2); }
 .about-intro h1 { font-size: clamp(2.25rem, 5.5vw, 3.75rem); font-weight: 450; letter-spacing: -0.015em; }
 .roles { list-style: none; margin-top: 1rem; font-size: clamp(1.125rem, 1.8vw, 1.3125rem); line-height: 1.45; color: var(--ink-2); }
 @media (min-width: 52em) {
